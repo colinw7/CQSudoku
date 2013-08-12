@@ -1,0 +1,4 @@
+CQSudoku
+========
+
+Qt Sudoku
