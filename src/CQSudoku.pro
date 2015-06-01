@@ -1,5 +1,7 @@
 TEMPLATE = app
 
+QT += widgets
+
 TARGET = CQSudoku
 
 DEPENDPATH += .
