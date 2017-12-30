@@ -1,4 +1,6 @@
 CQSudoku
 ========
 
-Qt Sudoku
+Qt Sudoku game and solver
+
+![sudoku](sudoku.png "Sudoku")
