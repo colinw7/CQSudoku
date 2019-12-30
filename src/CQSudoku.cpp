@@ -279,7 +279,7 @@ mousePressEvent(QMouseEvent *event)
 
 void
 CQSudokuCanvas::
-mouseMoveEvent(QMoveEvent *)
+mouseMoveEvent(QMouseEvent *)
 {
 }
 

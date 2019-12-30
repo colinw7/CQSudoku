@@ -20,10 +20,10 @@ class CQSudokuCanvas : public QWidget {
   virtual ~CQSudokuCanvas() { }
 
  protected:
-  void mousePressEvent(QMouseEvent *);
-  void mouseMoveEvent(QMoveEvent *);
-  void paintEvent(QPaintEvent *);
-  void resizeEvent(QResizeEvent *);
+  void mousePressEvent(QMouseEvent *) override;
+  void mouseMoveEvent (QMouseEvent *) override;
+  void paintEvent     (QPaintEvent *) override;
+  void resizeEvent    (QResizeEvent *) override;
 
   void forceDraw();
   void draw();

@@ -5,7 +5,7 @@
 #include <sstream>
 #include <iostream>
 
-CSudoku::Values values1 = {{
+CSudoku::Values exampleValues1 = {{
   0, 2, 9,  0, 8, 5,  0, 0, 7,
   0, 8, 5,  0, 7, 0,  2, 3, 9,
   7, 0, 0,  9, 3, 0,  5, 0, 0,
@@ -19,7 +19,7 @@ CSudoku::Values values1 = {{
   4, 0, 0,  5, 1, 0,  8, 9, 0,
 }};
 
-CSudoku::Values values2 = {{
+CSudoku::Values exampleValues2 = {{
   0, 6, 0,  0, 0, 9,  0, 8, 0,
   0, 0, 0,  0, 0, 8,  0, 6, 3,
   0, 4, 8,  3, 5, 0,  0, 0, 0,
@@ -99,7 +99,7 @@ newGame()
   if (genValues(values))
     init(values);
   else
-    init(values1);
+    init(exampleValues1);
 
   setInitValues();
 
@@ -245,8 +245,8 @@ genValues(Values &values)
     // count number of solved cells
     uint count = 0;
 
-    for (uint i = 0; i < AREA; ++i)
-      if (values.values[i] != 0)
+    for (uint ia = 0; ia < AREA; ++ia)
+      if (values.values[ia] != 0)
         ++count;
 
     // too few values so give up
@@ -698,7 +698,7 @@ checkTwinRow(Cell &cell, uint i, uint j)
 
   if (num_twins == 2 && num_unknown > 2) {
     for (pr1 = beginRow(i), pr2 = endRow(); pr1 != pr2; ++pr1) {
-      if (int(pr1.j()) == j || int(pr1.j()) == tj) continue;
+      if (pr1.j() == j || int(pr1.j()) == tj) continue;
 
       Cell &cell1 = *pr1;
 
@@ -750,7 +750,7 @@ checkTwinCol(Cell &cell, uint i, uint j)
 
   if (num_twins == 2 && num_unknown > 2) {
     for (pc1 = beginCol(j), pc2 = endCol(); pc1 != pc2; ++pc1) {
-      if (int(pc1.i()) == i || int(pc1.i()) == ti) continue;
+      if (pc1.i() == i || int(pc1.i()) == ti) continue;
 
       Cell &cell1 = *pc1;
 
@@ -802,7 +802,7 @@ checkTwinCell(Cell &cell, uint i, uint j)
 
   if (num_twins == 2 && num_unknown > 2) {
     for (pb1 = beginBlock(i, j), pb2 = endBlock(); pb1 != pb2; ++pb1) {
-      if ((int(pb1.i()) == i  && int(pb1.j()) == j ) ||
+      if ((    pb1.i()  == i  &&     pb1.j()  == j ) ||
           (int(pb1.i()) == ti && int(pb1.j()) == tj)) continue;
 
       Cell &cell1 = *pb1;
@@ -882,7 +882,7 @@ checkTripleRow(Cell &cell, uint i, uint j)
 
   if (num_triples == 3 && num_unknown > 3) {
     for (pr1 = beginRow(i), pr2 = endRow(); pr1 != pr2; ++pr1) {
-      if (int(pr1.j()) == j || int(pr1.j()) == tj1 || int(pr1.j()) == tj2) continue;
+      if (pr1.j() == j || int(pr1.j()) == tj1 || int(pr1.j()) == tj2) continue;
 
       Cell &cell1 = *pr1;
 
@@ -940,7 +940,7 @@ checkTripleCol(Cell &cell, uint i, uint j)
 
   if (num_triples == 3 && num_unknown > 3) {
     for (pc1 = beginCol(j), pc2 = endCol(); pc1 != pc2; ++pc1) {
-      if (int(pc1.i()) == i || int(pc1.i()) == ti1 || int(pc1.i()) == ti2) continue;
+      if (pc1.i() == i || int(pc1.i()) == ti1 || int(pc1.i()) == ti2) continue;
 
       Cell &cell1 = *pc1;
 
@@ -998,7 +998,7 @@ checkTripleCell(Cell &cell, uint i, uint j)
 
   if (num_triples == 3 && num_unknown > 3) {
     for (pb1 = beginBlock(i, j), pb2 = endBlock(); pb1 != pb2; ++pb1) {
-      if ((int(pb1.i()) == i   && int(pb1.j()) == j  ) ||
+      if ((    pb1.i()  == i   &&     pb1.j()  == j  ) ||
           (int(pb1.i()) == ti1 && int(pb1.j()) == tj1) ||
           (int(pb1.i()) == ti2 && int(pb1.j()) == tj2)) continue;
 
@@ -1084,9 +1084,9 @@ solveCell(uint k)
 
     if (! cell.isUnknown()) continue;
 
-    for (uint k = 1; k <= SIZE; ++k) {
-      if (! values.get(k))
-        cell.clearSolveValue(k);
+    for (uint k1 = 1; k1 <= SIZE; ++k1) {
+      if (! values.get(k1))
+        cell.clearSolveValue(k1);
     }
   }
 
