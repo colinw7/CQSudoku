@@ -476,7 +476,7 @@ draw()
 
          str[0] = value + '0';
 
-         int char_width = fm1.width(str);
+         int char_width = fm1.horizontalAdvance(str);
 
          if (value != svalue)
            pen.setColor(Qt::red);
@@ -504,7 +504,7 @@ draw()
              if (value) {
                str[0] = k + '0';
 
-               int char_width = fm2.width(str);
+               int char_width = fm2.horizontalAdvance(str);
 
                if (k == svalue)
                  pen.setColor(0xFFFF4444);
@@ -526,7 +526,7 @@ draw()
 
            str[0] = svalue + '0';
 
-           int char_width = fm1.width(str);
+           int char_width = fm1.horizontalAdvance(str);
 
            pen.setColor(0xFF44CC44);
 
@@ -727,7 +727,7 @@ setNumber(int n, int x, int y, int size)
 
   setFont(font);
 
-  int char_width  = fm.width(str);
+  int char_width  = fm.horizontalAdvance(str);
   int char_height = fm.height();
 
   int w = char_width  + 12;

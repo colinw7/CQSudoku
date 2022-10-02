@@ -112,11 +112,11 @@ loadGame(const char *str)
 {
   Values values;
 
-  uint len = strlen(str);
+  auto len = strlen(str);
 
   for (uint i = 0; i < AREA; ++i) {
     if (i < len && str[i] >= '1' && str[i] <= '9')
-      values.values[i] = str[i] - '0';
+      values.values[i] = uint(str[i] - '0');
     else
       values.values[i] = 0;
   }
@@ -203,12 +203,12 @@ genValues(Values &values)
 
   while (n < NUM_ITERATIONS) {
     // get random value and position
-    uint value = (rand() % SIZE) + 1;
-    uint pos   = (rand() % AREA);
+    uint value = uint((rand() % SIZE) + 1);
+    uint pos   = uint(rand() % AREA);
 
     // ensure position is unknown
     while (values.values[pos] != 0)
-      pos = (rand() % AREA);
+      pos = uint(rand() % AREA);
 
     // set to value
     values.values[pos] = value;
@@ -254,10 +254,10 @@ genValues(Values &values)
       return false;
 
     // reset random cell to unknown (0) and try again
-    uint pos = (rand() % AREA);
+    uint pos = uint(rand() % AREA);
 
     while (values.values[pos] == 0)
-      pos = (rand() % AREA);
+      pos = uint(rand() % AREA);
 
     values.values[pos] = 0;
 
@@ -438,7 +438,7 @@ iterSolve()
 
   std::vector<uint> solve_values = min_cell.getSolveValues();
 
-  uint num_solve_values = solve_values.size();
+  auto num_solve_values = solve_values.size();
 
   for (uint i = 0; i < num_solve_values; ++i) {
     uint value = solve_values[i];
@@ -690,7 +690,7 @@ checkTwinRow(Cell &cell, uint i, uint j)
     const ValueSet &values1 = cell1.getSolveValueSet();
 
     if (values == values1) {
-      ++num_twins; tj = pr1.j();
+      ++num_twins; tj = int(pr1.j());
     }
   }
 
@@ -742,7 +742,7 @@ checkTwinCol(Cell &cell, uint i, uint j)
     const ValueSet &values1 = cell1.getSolveValueSet();
 
     if (values == values1) {
-      ++num_twins; ti = pc1.i();
+      ++num_twins; ti = int(pc1.i());
     }
   }
 
@@ -794,7 +794,7 @@ checkTwinCell(Cell &cell, uint i, uint j)
     const ValueSet &values1 = cell1.getSolveValueSet();
 
     if (values == values1) {
-      ++num_twins; ti = pb1.i(); tj = pb1.j();
+      ++num_twins; ti = int(pb1.i()); tj = int(pb1.j());
     }
   }
 
@@ -873,8 +873,8 @@ checkTripleRow(Cell &cell, uint i, uint j)
         (num == 2 && values.contains(values1))) {
       ++num_triples;
 
-      if      (tj1 < 0) tj1 = pr1.j();
-      else if (tj2 < 0) tj2 = pr1.j();
+      if      (tj1 < 0) tj1 = int(pr1.j());
+      else if (tj2 < 0) tj2 = int(pr1.j());
     }
   }
 
@@ -931,8 +931,8 @@ checkTripleCol(Cell &cell, uint i, uint j)
         (num == 2 && values.contains(values1))) {
       ++num_triples;
 
-      if      (ti1 < 0) ti1 = pc1.i();
-      else if (ti2 < 0) ti2 = pc1.i();
+      if      (ti1 < 0) ti1 = int(pc1.i());
+      else if (ti2 < 0) ti2 = int(pc1.i());
     }
   }
 
@@ -989,8 +989,8 @@ checkTripleCell(Cell &cell, uint i, uint j)
         (num == 2 && values.contains(values1))) {
       ++num_triples;
 
-      if      (ti1 < 0) { ti1 = pb1.i(); tj1 = pb1.j(); }
-      else if (ti2 < 0) { ti2 = pb1.i(); tj2 = pb1.j(); }
+      if      (ti1 < 0) { ti1 = int(pb1.i()); tj1 = int(pb1.j()); }
+      else if (ti2 < 0) { ti2 = int(pb1.i()); tj2 = int(pb1.j()); }
     }
   }
 
@@ -1235,6 +1235,17 @@ log(const std::string &str) const
 std::string
 CSudoku::
 intToString(int i)
+{
+  std::stringstream ss;
+
+  ss << i;
+
+  return ss.str();
+}
+
+std::string
+CSudoku::
+intToString(uint i)
 {
   std::stringstream ss;
 
